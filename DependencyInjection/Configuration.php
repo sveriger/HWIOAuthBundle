@@ -74,6 +74,9 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('http_client')
                 ->addDefaultsIfNotSet()
                 ->children()
+                    ->scalarNode('proxy')
+                        ->cannotBeEmpty()
+                    ->end()
                     ->scalarNode('timeout')
                         ->defaultValue(5)
                         ->cannotBeEmpty()
@@ -177,6 +180,14 @@ class Configuration implements ConfigurationInterface
                                     return empty($v);
                                 })
                                 ->thenUnset()
+                            ->end()
+                        ->end()
+                        ->scalarNode('resource_owner_class')
+                            ->validate()
+                            ->ifTrue(function($v) {
+                                return empty($v);
+                            })
+                            ->thenUnset()
                             ->end()
                         ->end()
                         ->scalarNode('service')
