@@ -9,6 +9,6 @@
     </parameters>
 
     <services>
-        <service id="buzz.client" class="%buzz.client.class%" public="false" />
+        <service id="hwi.buzz.client" class="%buzz.client.class%" public="false" />
     </services>
 </container>
