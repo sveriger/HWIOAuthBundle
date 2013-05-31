@@ -46,6 +46,7 @@ class HWIOAuthExtension extends Extension
         $httpClient->addMethodCall('setTimeout', array($config['http_client']['timeout']));
         $httpClient->addMethodCall('setMaxRedirects', array($config['http_client']['max_redirects']));
         $httpClient->addMethodCall('setIgnoreErrors', array($config['http_client']['ignore_errors']));
+        $httpClient->addMethodCall('setProxy', array($config['http_client']['proxy']));
         $container->setDefinition('hwi_oauth.http_client', $httpClient);
 
         // set current firewall
@@ -126,6 +127,12 @@ class HWIOAuthExtension extends Extension
             $resourceOwnerDefinition = $container->getDefinition('hwi_oauth.resource_owner.'.$name);
             $resourceOwnerDefinition->addMethodCall('setName', array($name));
         } else {
+            
+            if (isset($options['resource_owner_class'])) {
+                $container->setParameter('hwi_oauth.resource_owner.' . $name . '.class', $options['resource_owner_class']);
+                unset($options['resource_owner_class']);
+            }
+            
             $type = $options['type'];
             unset($options['type']);
 
