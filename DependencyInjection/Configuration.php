@@ -75,7 +75,7 @@ class Configuration implements ConfigurationInterface
                 ->addDefaultsIfNotSet()
                 ->children()
                     ->scalarNode('proxy')
-                        ->cannotBeEmpty()
+                        ->defaultValue('null')
                     ->end()
                     ->scalarNode('timeout')
                         ->defaultValue(5)
